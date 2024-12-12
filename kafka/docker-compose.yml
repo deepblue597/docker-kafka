@@ -114,3 +114,4 @@ services:
     ports:
       - "8080:8080" # Expose Kafka UI on port 8080
 
+#TODO: Add network naming
