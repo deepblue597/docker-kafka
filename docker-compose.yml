@@ -50,12 +50,13 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9093,2@controller-2:9093,3@controller-3:9093
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+    #  KAFKA_LOG_DIRS: /var/lib/kafka/data # Ensure this matches the container's directory
     depends_on:
       - controller-1
       - controller-2
       - controller-3
-    volumes:
-      - ./data/kafka/broker1:/var/lib/kafka/data
+  #    volumes:
+  #      - ./data/kafka/broker1:/var/lib/kafka/data
 
   broker-2:
     image: apache/kafka:latest
@@ -72,12 +73,13 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9093,2@controller-2:9093,3@controller-3:9093
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      #KAFKA_LOG_DIRS: /var/lib/kafka/data # this is where the data are being stored
     depends_on:
       - controller-1
       - controller-2
       - controller-3
-    volumes:
-      - ./data/kafka/broker2:/var/lib/kafka/data
+    #volumes:
+    # - ./data/kafka/broker2:/var/lib/kafka/data
 
   broker-3:
     image: apache/kafka:latest
@@ -94,12 +96,13 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9093,2@controller-2:9093,3@controller-3:9093
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+    #  KAFKA_LOG_DIRS: /var/lib/kafka/data # this is where the data are being stored
     depends_on:
       - controller-1
       - controller-2
       - controller-3
-    volumes:
-      - ./data/kafka/broker3:/var/lib/kafka/data
+    #volumes:
+    #  - ./data/kafka/broker3:/var/lib/kafka/data
 
   kafka-ui-multi:
     image: provectuslabs/kafka-ui:latest

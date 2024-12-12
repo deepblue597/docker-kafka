@@ -26,7 +26,7 @@ def create_kafka_consumer(server, offset, groupId):
 if __name__ == '__main__':
 
     consumer = create_kafka_consumer(
-        'localhost:29092', 'earliest', 'wikimedia-vol2')
+        'localhost:39092', 'earliest', 'wikipedia-events')
     # Subscribe to topic
     topic = "wikipedia-events"
     consumer.subscribe([topic])
