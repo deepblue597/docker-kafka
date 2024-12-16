@@ -1,0 +1,4 @@
+apache-flink
+confluent-kafka
+flink-kafka-connector
+pyspark

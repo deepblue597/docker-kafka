@@ -10,12 +10,14 @@ def main():
     # Set up the execution environment
     env = StreamExecutionEnvironment.get_execution_environment()
 
-    # env.add_jars(
-    #     "file:///opt/flink/flink-sql-connector-kafka-1.15.4.jar")
+    # # Add the Kafka connector JAR file
+    env.add_jars(
+        "file:///opt/flink/lib/flink-sql-connector-kafka-3.4.0-1.20.jar"
+    )
 
     # Kafka Source Configuration
     kafka_source = KafkaSource.builder() \
-        .set_bootstrap_servers("localhost:39092")  \
+        .set_bootstrap_servers("broker-1:9092")  \
         .set_topics("wikipedia-events")  \
         .set_group_id("flink-consumer-group")  \
         .set_value_only_deserializer(SimpleStringSchema())  \
@@ -28,7 +30,7 @@ def main():
 
     # Kafka Sink Configuration
     kafka_sink = KafkaSink.builder() \
-        .set_bootstrap_servers("localhost:39092") \
+        .set_bootstrap_servers("broker-1:9092") \
         .set_record_serializer(record_serializer) \
         .build()
 

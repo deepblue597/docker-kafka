@@ -20,34 +20,3 @@ services:
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
         taskmanager.numberOfTaskSlots: 2
-
-# version: "3.9"
-
-# services:
-#   jobmanager:
-#     build:
-#       context: .
-#       dockerfile: Dockerfile # Path to your Dockerfile
-#     environment:
-#       - JOB_MANAGER_RPC_ADDRESS=jobmanager
-#     command: ["jobmanager.sh"]
-#     ports:
-#       - "8081:8081" # Flink Web UI
-#     networks:
-#       - flink-network
-
-#   taskmanager:
-#     build:
-#       context: .
-#       dockerfile: Dockerfile # Path to your Dockerfile
-#     environment:
-#       - JOB_MANAGER_RPC_ADDRESS=jobmanager
-#     command: ["taskmanager.sh"]
-#     depends_on:
-#       - jobmanager
-#     networks:
-#       - flink-network
-
-# networks:
-#   flink-network:
-#     driver: bridge
