@@ -13,7 +13,7 @@ def create_kafka_producer(bootstrap_server, acks, linger_ms=0, batch_size=16 * 1
         # User-specific properties that you must set
         'bootstrap.servers': bootstrap_server,
         # 'partitioner': RoundRobinPartitioner,
-
+        # TODO: find out how to change number of partitions -> through kafka admin
         'acks': acks,  # 0 1 all|-1
         # 'value.serializer': lambda x: json.dumps(x).encode('utf-8')
         'batch.size': batch_size,  # default 16Kb
@@ -30,6 +30,12 @@ def create_kafka_producer(bootstrap_server, acks, linger_ms=0, batch_size=16 * 1
     # Create Producer instance
     producer = Producer(config)
     return producer
+
+
+def construct_id(event_data):
+    event_data = {'id': event_data['id']}
+
+    return json.dumps({"id": event_data['id']}).encode('utf-8')
 
 
 def construct_event(event_data, user_types):
@@ -139,9 +145,10 @@ if __name__ == "__main__":
                 if event_data['type'] == 'edit':
                     # construct valid json event
                     event_to_send = construct_event(event_data, user_types)
+                    id_to_send = construct_id(event_data)
 
                     producer.produce(
-                        args.topic_name, value=event_to_send, callback=delivery_callback)
+                        args.topic_name, value=event_to_send, key=id_to_send, callback=delivery_callback)
                     # Polling to handle responses
                     # do we need these ?
                     producer.poll(0)
